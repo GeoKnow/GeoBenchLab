@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/lod2/!svn/ver/1724/D5.1.2/LOD2-geobench-v1.0
+END
+geopower.sh
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/lod2/!svn/ver/854/D5.1.2/LOD2-geobench-v1.0/geopower.sh
+END
+geotput.sh
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/lod2/!svn/ver/880/D5.1.2/LOD2-geobench-v1.0/geotput.sh
+END
+georunowlim.sh
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/lod2/!svn/ver/1683/D5.1.2/LOD2-geobench-v1.0/georunowlim.sh
+END
+splitDatafiles.sh
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/lod2/!svn/ver/1677/D5.1.2/LOD2-geobench-v1.0/splitDatafiles.sh
+END
+doall.sh
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/lod2/!svn/ver/1692/D5.1.2/LOD2-geobench-v1.0/doall.sh
+END
+geoqgen.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/lod2/!svn/ver/1724/D5.1.2/LOD2-geobench-v1.0/geoqgen.c
+END
+georun.sh
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/lod2/!svn/ver/854/D5.1.2/LOD2-geobench-v1.0/georun.sh
+END
+geoscale.sh
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/lod2/!svn/ver/1677/D5.1.2/LOD2-geobench-v1.0/geoscale.sh
+END
+readme.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/lod2/!svn/ver/1724/D5.1.2/LOD2-geobench-v1.0/readme.txt
+END
+runqueryOwlim.sh
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/lod2/!svn/ver/1687/D5.1.2/LOD2-geobench-v1.0/runqueryOwlim.sh
+END
+geoqgenowlim.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/lod2/!svn/ver/1688/D5.1.2/LOD2-geobench-v1.0/geoqgenowlim.c
+END

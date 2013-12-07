@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/lod2/!svn/ver/1689/D5.1.2/LOD2-geobench-v1.0/geoindex
+END
+Facets.txt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/lod2/!svn/ver/854/D5.1.2/LOD2-geobench-v1.0/geoindex/Facets.txt
+END
+geoindex.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/lod2/!svn/ver/854/D5.1.2/LOD2-geobench-v1.0/geoindex/geoindex.c
+END
+facetcount.sh
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/lod2/!svn/ver/1678/D5.1.2/LOD2-geobench-v1.0/geoindex/facetcount.sh
+END
+indexscale.sh
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/lod2/!svn/ver/1689/D5.1.2/LOD2-geobench-v1.0/geoindex/indexscale.sh
+END
+facetmap.sh
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/lod2/!svn/ver/1678/D5.1.2/LOD2-geobench-v1.0/geoindex/facetmap.sh
+END
+geoindex.sh
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/lod2/!svn/ver/1678/D5.1.2/LOD2-geobench-v1.0/geoindex/geoindex.sh
+END
