@@ -76,8 +76,7 @@ programs
 geoindex
 ========
 
-there is an optimized/approximate implmentation of the benchmark based on precomputed triples organized 
-in multiple resolutions along QuadTiles.
+There is an optimized/approximate implmentation of the benchmark based on precomputed triples organized in multiple resolutions along QuadTiles.
 
 - geoindex/geoindex.c  (make: gcc geoindex.c -o geoindex)
   program that reads the RelevantNodes/Ways files and creates extra triples. Is called from the geoindex.sh script.
@@ -90,10 +89,7 @@ in multiple resolutions along QuadTiles.
 benchmark scaling
 =================
 
-The standard benchmark takes consists of onlu 10M geometric objects. Still, for current RDF technology
-this is not a trivial dataset. There benchmark can be scaled by essentially copying. The instances
-get copied, but the facets they have are not the same as the original facet URIs; as these are also
-copied. So the 10x scaled dataset has 10x the amount of triples, and also 10x the amount of facets.
+The standard benchmark takes consists of onlu 10M geometric objects. Still, for current RDF technology this is not a trivial dataset. There benchmark can be scaled by essentially copying. The instances get copied, but the facets they have are not the same as the original facet URIs; as these are also copied. So the 10x scaled dataset has 10x the amount of triples, and also 10x the amount of facets.
 
 - geoscale.sh
   scale the indexing datasets (should be in wordking dir) by a certain factor.
