@@ -31,7 +31,7 @@ VARIANT=$1
 RUN=$2
 
 # the SPARQL client program -- currently only tested for Virtuoso
-CLIENT="isql -S 1113"
+CLIENT="isql 1203"
 
 START=`date -u | awk '{ print $4 }'`
 for stream in 01 $(seq -f '%02g' 2 1 $RUN) 
