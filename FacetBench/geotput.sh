@@ -28,7 +28,7 @@
 PRICE=$1
 
 # perf.out file with milliseconds per query in a stream in position four
-(for stream in $2 $3 $4 $5 $6 $7 $8 $9 ${10} ${11} ${12} ${13} ${14} ${15} ${16} ${17}; do geopower.sh $PRICE $stream; done) | awk "{ \
+(for stream in $2 $3 $4 $5 $6 $7 $8 $9 ${10} ${11} ${12} ${13} ${14} ${15} ${16} ${17}; do ./geopower.sh $PRICE $stream; done) | awk "{ \
   for(i=1;i<=6; i++) { \
     k[i] += \$i;  \
   }\
