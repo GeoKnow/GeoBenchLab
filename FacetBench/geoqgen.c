@@ -246,14 +246,14 @@ double filter_quad(char* indent, double lat_lo, double lon_lo, double lat_hi, do
 	} else {
 		fprintf(fp, 
 			") .\n" 
-			"%s{ #subquery-start\n"
+			"%s{\n"
 			"%s  select ?s ?g\n"
 			"%s  where\n"
-			"%s  { #where-start\n"
+			"%s  {\n"
 			"%s    ?s <%s> ?g .\n"
 			"%s    filter (?g >= %llu && ?g <= %llu)\n"
-			"%s  } #where-end\n"
-			"%s} #subquery-end\n",
+			"%s  }\n"
+			"%s}\n",
 				indent, 
 				indent, 
 				indent, 
@@ -297,13 +297,13 @@ void facetcnt(int mode, double lat_lo, double lon_lo, double lat_hi, double lon_
 		fprintf(fp,
 			"select ?f as ?facet count(?s) as ?cnt\n"
 			"where\n"
-			"{ #where-start\n"
+			"{\n"
 			"  ?s <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?a ;\n"
 			"     <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?o ;\n"
 			"     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?f .\n");
 		filter_box(mode, "  ", lat_lo, lon_lo, lat_hi, lon_hi);
 		fprintf(fp,
-			"} #where-end\n"
+			"}\n"
 			"group by ?f\n"
 			"order by desc(?cnt)\n"
 			"limit 50\n");
@@ -311,11 +311,11 @@ void facetcnt(int mode, double lat_lo, double lon_lo, double lat_hi, double lon_
 		fprintf(fp,
 			"select ?f as ?facet count(?s) as ?cnt\n"
 			"where\n"
-			"{ #where-start\n"
+			"{\n"
 			"  ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?f .\n");
 		filter_box(mode, "  ", lat_lo, lon_lo, lat_hi, lon_hi);
 		fprintf(fp,
-			"} #where-end\n"
+			"}\n"
 			"group by ?f\n"
 			"order by desc(?cnt)\n"
 			"limit 50\n");
@@ -324,12 +324,12 @@ void facetcnt(int mode, double lat_lo, double lon_lo, double lat_hi, double lon_
 		fprintf(fp,
 			"select ?f as ?facet xsd:integer(sum(?c * %g)) as ?cnt\n"
 			"where\n"
-			"{ #where-start\n"
+			"{\n"
 			"  ?s <http://linkedgeodata.org/facetcount/count> ?c ;\n"
 			"     <http://linkedgeodata.org/facetcount/facet> ?f .\n", frac);
 		filter_quad("  ", lat_lo, lon_lo, lat_hi, lon_hi, 0, 20, URI_FACETCNT, 24);
 		fprintf(fp, 
-			"} #where-end\n"
+			"}\n"
 			"group by ?f\n"
 			"order by desc(?cnt)\n"
 			"limit 50\n");
@@ -343,108 +343,107 @@ void facetmap(int mode, double lat_lo, double lon_lo, double lat_hi, double lon_
 		fprintf(fp,
 			"select ?f as ?facet ?latlon ?cnt\n"
 			"where\n"
-			"{ #where-start\n"
-			"  { #subquery-start\n"
+			"{\n"
+			"  {\n"
 			"    select ?f ?x ?y  max(concat(xsd:string(?a),\" \",xsd:string(?o))) as ?latlon count(*) as ?cnt\n"
 			"    where\n"
-			"    { #where-start\n"
-			"      { #subquery-start\n"
+			"    {\n"
+			"      {\n"
 			"        select ?f ?a ?o xsd:integer(20*(?a - %g)/%g) as ?y xsd:integer(40*(?o - %g)/%g) as ?x\n"
 			"        where\n"
-			"        { #where-start\n"
-			"          { #union-start\n"
+			"        {\n"
+			"          {\n"
 			"            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?f . filter (?f = <%s>)\n"
-			"          } #union-end\n"
+			"          }\n"
 			"          union\n"
-			"          { #union-start\n"
+			"          {\n"
 			"            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?f . filter (?f = <%s>)\n"
-			"          } #union-end\n"
+			"          }\n"
 			"          union\n"
-			"          { #union-start\n"
+			"          {\n"
 			"            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?f . filter (?f = <%s>)\n"
-			"          } #union-end\n"
+			"          }\n"
 			"          union\n"
-			"          { #union-start\n"
+			"          {\n"
 			"            ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?f . filter (?f = <%s>)\n"
-			"          } #union-end\n"
+			"          }\n"
 			"          ?s  <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?a ;\n"
 			"              <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?o .\n",
 				lat_lo, lat_hi-lat_lo, lon_lo, lon_hi-lon_lo, 
 				geturi(f1,b1), geturi(f2,b2), geturi(f3,b3), geturi(f4,b4));
 		filter_box(mode, "          ", lat_lo, lon_lo, lat_hi, lon_hi);
 		fprintf(fp,
-			"        } #where-end\n"
-			"      } #subquery-end\n"
-			"    } #where-end\n"
+			"        }\n"
+			"      }\n"
+			"    }\n"
 			"    group by ?f ?x ?y\n"
 			"    order by ?f ?x ?y\n"
-			"  } #subquery-end\n"
-			"} #where-end\n");
+			"  }\n"
+			"}\n");
 	} else {
 		fprintf(fp,
 			"select ?f as ?facet max(concat(xsd:string(?a),\" \",xsd:string(?o))) as ?latlon sum(?c) as ?cnt\n"
 			"where\n"
-			"{ #where-start\n"
-			"  { #subquery-start\n"
+			"{\n"
+			"  {\n"
 			"    select ?f ?c xsd:integer(20*(?a - %g)/%g) as ?y xsd:integer(40*(?o - %g)/%g) as ?x\n"
 			"    where\n"
-			"    { #where-start\n"
-			"      { #union-start\n"
-			"        { #subquery-start\n"
+			"    {\n"
+			"      {\n"
+			"        {\n"
 			"          select ?s <%s> as ?f\n"
 			"          where\n"
-			"          { #where-start\n", 
+			"          {\n", 
 				lat_lo, lat_hi-lat_lo, lon_lo, lon_hi-lon_lo, geturi(f1,b1));
 		filter_quad("            ", lat_lo, lon_lo, lat_hi, lon_hi, getcode(f1)<<32, 0, URI_FACETMAP, 18);
 		fprintf(fp, 
-			"          } #where-end\n"
-			"        } #subquery-end\n"
-			"      } #union-end\n"
+			"          }\n"
+			"        }\n"
+			"      }\n"
 			"      union\n"
-			"      { #union-start\n"
-			"        { #subquery-start\n"
+			"      {\n"
+			"        {\n"
 			"          select ?s <%s> as ?f\n"
  			"          where\n"
-			"          { #where-start\n", geturi(f2,b2));
+			"          {\n", geturi(f2,b2));
 		filter_quad("            ", lat_lo, lon_lo, lat_hi, lon_hi, getcode(f2)<<32, 0, URI_FACETMAP, 18);
 		fprintf(fp, 
-			"         } #where-end\n"
-			"        } #subquery-end\n"
-			"      } #union-end\n"
+			"         }\n"
+			"        }\n"
+			"      }\n"
 			"      union\n"
-			"      { #union-start\n"
-			"        { #subquery-start\n"
+			"      {\n"
+			"        {\n"
 			"          select ?s <%s> as ?f\n"
  			"          where\n"
-			"          { #where-start\n", geturi(f3,b3));
+			"          {\n", geturi(f3,b3));
 		filter_quad("            ", lat_lo, lon_lo, lat_hi, lon_hi, getcode(f3)<<32, 0, URI_FACETMAP, 18);
 		fprintf(fp, 
-			"          } #where-end\n"
-			"        } #subquery-end\n"
-			"      } #union-end\n"
+			"          }\n"
+			"        }\n"
+			"      }\n"
 			"      union\n"
-			"      { #union-start\n"
-			"        { #subquery-start\n"
+			"      {\n"
+			"        {\n"
 			"          select ?s <%s> as ?f\n"
  			"          where\n"
-			"          { #where-start\n", geturi(f4,b4));
+			"          {", geturi(f4,b4));
 		filter_quad("            ", lat_lo, lon_lo, lat_hi, lon_hi, getcode(f4)<<32, 0, URI_FACETMAP, 18);
 		fprintf(fp, 
-			"          } #where-end\n"
-			"        } #subquery-end\n"
-			"      } #union-end\n"
+			"          }\n"
+			"        }\n"
+			"      }\n"
 			"      .\n"
 			"      ?s <http://linkedgeodata.org/facetmap/latitude> ?a ;\n"
 			"         <http://linkedgeodata.org/facetmap/longitude> ?o ;\n"
 			"         <http://linkedgeodata.org/facetmap/count> ?c .\n");
 		filter_box(mode, "      ", lat_lo, lon_lo, lat_hi, lon_hi);
 		fprintf(fp, 
-			"    } #where-end\n"
-			"  } #subquery-end\n"
-			"} #where-end\n"
-			"group by ?f ?x ?y\n",
-			"order by ?f ?x ?y\n",
-				lat_lo, lat_hi, lon_lo, lon_hi);
+			"    }\n"
+			"  }\n"
+			"}\n"
+			"group by ?f ?x ?y\n"
+			"order by ?f ?x ?y\n");
 	}
 	closequery();
 }
@@ -454,71 +453,71 @@ void facetget(int mode, double lat_lo, double lon_lo, double lat_hi, double lon_
 	fprintf(fp, 
 		"select ?s as ?instance ?f as ?facet ?a as ?lat ?o as ?lon\n"
 		"where\n"
-		"{ #where-start\n");
+		"{\n");
 	if (mode == SELECT_BASIC || mode == SELECT_RTREE || mode == SELECT_RTREE_BOX) {
 		fprintf(fp, 
-      			"  { #union-start\n"
+      			"  {\n"
 			"    ?s  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?f filter (?f = <%s>)\n"
-			"  } #union-end\n"
+			"  }\n"
 			"  union\n"
-      			"  { #union-start\n"
+      			"  {\n"
 			"    ?s  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?f filter (?f = <%s>)\n"
-			"  } #union-end\n"
+			"  }\n"
 			"  union\n"
-      			"  { #union-start\n"
+      			"  {\n"
 			"    ?s  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?f filter (?f = <%s>)\n"
-			"  } #union-end\n"
+			"  }\n"
 			"  union\n"
-      			"  { #union-start\n"
+      			"  {\n"
 			"    ?s  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?f filter (?f = <%s>)\n"
-			"  } #union-end\n"
+			"  }\n"
 			"  .\n",
 				geturi(f1,b1), geturi(f2,b2), geturi(f3,b3), geturi(f4,b4));
 	} else {
 		fprintf(fp, 
-			"  { #union-start\n"
-			"    { #subquery-start\n"
+			"  {\n"
+			"    {\n"
 			"      select ?s <%s> as ?f\n"
 			"      where\n"
-			"      { #where-start\n", geturi(f1,b1));
+			"      {\n", geturi(f1,b1));
 		filter_quad("        ", lat_lo, lon_lo, lat_hi, lon_hi, getcode(f1)<<32, 0, URI_FACETGET, 24);
 		fprintf(fp, 
-			"      } #where-end\n"
-			"    } #subquery-end\n"
-			"  } #union-end\n"
+			"      }\n"
+			"    }\n"
+			"  }\n"
 			"  union\n"
-			"  { #union-start\n"
-			"    { #subquery-start\n"
+			"  {\n"
+			"    {\n"
 			"      select ?s <%s> as ?f\n"
 			"      where\n"
-			"      { #where-start\n", geturi(f2,b2));
+			"      {\n", geturi(f2,b2));
 		filter_quad("        ", lat_lo, lon_lo, lat_hi, lon_hi, getcode(f2)<<32, 0, URI_FACETGET, 24);
 		fprintf(fp, 
-			"      } #where-end\n"
-			"    } #subquery-end\n"
-			"  } #union-end\n"
+			"      }\n"
+			"    }\n"
+			"  }\n"
 			"  union\n"
-			"  { #union-start\n"
-			"    { #subquery-start\n"
+			"  {\n"
+			"    {\n"
 			"      select ?s <%s> as ?f\n"
 			"      where\n"
-			"      { #where-start\n", geturi(f3,b3));
+			"      {\n", geturi(f3,b3));
 		filter_quad("        ", lat_lo, lon_lo, lat_hi, lon_hi, getcode(f3)<<32, 0, URI_FACETGET, 24);
 		fprintf(fp, 
-			"      } #where-end\n"
-			"    } #subquery-end\n"
-			"  } #union-end\n"
+			"      }\n"
+			"    }\n"
+			"  }\n"
 			"  union\n"
-			"  { #union-start\n"
-			"    { #subquery-start\n"
+			"  {\n"
+			"    {\n"
 			"      select ?s <%s> as ?f\n"
 			"      where\n"
-			"      { #where-start\n", geturi(f4,b4));
+			"      {\n", geturi(f4,b4));
 		filter_quad("        ", lat_lo, lon_lo, lat_hi, lon_hi, getcode(f4)<<32, 0, URI_FACETGET, 24);
 		fprintf(fp, 
-			"      } #where-end\n"
-			"    } #subquery-end\n"
-			"  } #union-end\n"
+			"      }\n"
+			"    }\n"
+			"  }\n"
 			"  .\n");
 		mode = SELECT_BASIC;
 	}
@@ -527,7 +526,7 @@ void facetget(int mode, double lat_lo, double lon_lo, double lat_hi, double lon_
 		"      <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?o .\n");
 	filter_box(mode, "  ", lat_lo, lon_lo, lat_hi, lon_hi);
 	fprintf(fp, 
-		"} #where-end\n");
+		"}\n");
 	closequery();
 }
 
@@ -538,7 +537,7 @@ int main(int argc, char** argv) {
 		fprintf(stderr, "usage: %s run scale path [ queryvariant0-2 ]\n", argv[0]);
 		fprintf(stderr, "       run = {warmup=0; power=1; tput=2,4,8,16}\n");
 		fprintf(stderr, "       scale >= 1 \n");
-		fprintf(stderr, "       queryvariant = {basic=0, rtree=1, quadtile=2}\n");
+		fprintf(stderr, "       queryvariant = {basic=0, rtree=1, quadtile=2, rtree bbox=3}\n");
 		return -1;
 	}
 	scale = atoi(argv[2]);
