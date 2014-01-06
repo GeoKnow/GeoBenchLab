@@ -27,6 +27,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 /* start and end of a query string -- now Virtuoso specific */
 #define SPARQL_PROLOGUE "sparql "
 /*#define SPARQL_PROLOGUE "sparql define sql:signal-void-variables 1 "*/
