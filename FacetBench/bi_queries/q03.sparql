@@ -1,0 +1,7 @@
+sparql select count (*) count (?country)
+where {
+  ?feature geo:geometry ?sgeo .
+  graph <sqs> { ?sq geo:geometry ?sqgeo . } .
+  filter (bif:st_intersects (?sqgeo, ?sgeo)) .
+  optional { ?sq <sq-belongs-to-country> ?country . }
+}

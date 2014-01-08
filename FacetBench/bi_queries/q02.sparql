@@ -1,0 +1,13 @@
+sparql select ?country, count(1), sum (?sale_price)
+where
+{
+  ?offer a <http://linkedgeodata.org/ontology/Offer> ;
+    <http://linkedgeodata.org/ontology/subject> ?re_subj ;
+    <http://linkedgeodata.org/ontology/sale_price> ?sale_price .
+  ?re_subj geo:geometry ?sgeo .
+  ?sq geo:geometry ?sqgeo .
+  filter (bif:st_intersects (?sqgeo, ?sgeo))
+  ?sq <sq-belongs-to-country> ?country .
+}
+group by ?country
+order by desc 2

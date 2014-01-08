@@ -1,0 +1,16 @@
+sparql select ?cname
+  (sum(if (?g_graph = <lgd_ext>, 1, 0)) as ?n_lgd)
+  (sum(if (?g_graph = <http://dbpedia.org>, 1, 0)) as ?n_dbp)
+  (sum(if (?g_graph != <http://dbpedia.org> &&
+           ?g_graph != <lgd_ext> &&
+           ?g_graph != <sqs>, 1, 0)) as ?n_geo)
+where
+{
+  graph ?g_graph { ?feature geo:geometry ?sgeo . } .
+  ?sq geo:geometry ?sqgeo .
+  filter (bif:st_intersects (?sqgeo, ?sgeo))
+  ?sq <sq-belongs-to-country> ?country .
+  ?country <http://www.geonames.org/ontology#name> ?cname
+}
+group by ?cname
+order by desc 2
