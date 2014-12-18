@@ -1,0 +1,10 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+select distinct ?obs ?measure 
+where { 
+  ?obs qb:dataSet ?ds . 
+  ?ds qb:structure ?dsd . 
+  ?obs qb:measureType ?measure . 
+  ?dsd qb:component ?cs . 
+  ?component qb:componentProperty qb:measureType . 
+  FILTER NOT EXISTS { ?obs ?measure [] } 
+}

@@ -1,0 +1,7 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+select distinct ?obs ?dataset ?slice 
+where { 
+  ?dataset qb:slice ?slice . 
+  ?slice   qb:observation ?obs . 
+  FILTER NOT EXISTS { ?obs qb:dataSet ?dataset . } 
+}

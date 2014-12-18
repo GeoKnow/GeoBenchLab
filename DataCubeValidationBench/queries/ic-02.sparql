@@ -1,0 +1,8 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+select ?dataSet ?dsdNum 
+where { 
+  { SELECT DISTINCT ?dataSet (0 as ?dsdNum) WHERE { ?dataSet a qb:DataSet . FILTER NOT EXISTS { ?dataSet qb:structure ?dsd . ?dsd a qb:DataStructureDefinition . } } } 
+  UNION 
+  { SELECT ?dataSet (count(distinct ?dsd) as ?dsdNum) { ?dataSet a qb:DataSet . ?dataSet qb:structure ?dsd . ?dsd a qb:DataStructureDefinition . } group by ?dataSet } 
+  FILTER (?dsdNum != 1) 
+}

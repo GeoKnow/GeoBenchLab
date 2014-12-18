@@ -1,0 +1,9 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+select ?slice ?dim 
+where { 
+  ?slice qb:sliceStructure ?key . 
+  ?key qb:componentProperty ?dim . 
+  FILTER NOT EXISTS { 
+    ?slice ?dim ?val . 
+  } 
+} order by ?slice

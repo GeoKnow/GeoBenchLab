@@ -1,0 +1,11 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+select ?sliceKey 
+where { 
+  ?sliceKey a qb:SliceKey . 
+  ?sliceKey qb:componentProperty ?prop . 
+  ?dsd qb:sliceKey ?sliceKey . 
+  FILTER NOT EXISTS { 
+    ?dsd qb:component ?cs . 
+    ?cs qb:componentProperty ?prop . 
+  } 
+}

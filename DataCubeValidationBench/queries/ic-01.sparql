@@ -1,0 +1,8 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+select ?obs ?dsNum 
+where { 
+  { SELECT DISTINCT ?obs (0 as ?dsNum) WHERE { ?obs a qb:Observation . FILTER NOT EXISTS { ?obs qb:dataSet ?ds . } } } 
+  UNION 
+  { SELECT ?obs (count(distinct ?ds) as ?dsNum) { ?obs a qb:Observation . ?obs qb:dataSet ?ds . } group by ?obs } 
+  FILTER (?dsNum != 1) 
+}

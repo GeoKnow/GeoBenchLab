@@ -1,0 +1,11 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+prefix skos: <http://www.w3.org/2004/02/skos/core#> 
+select distinct ?obs 
+where { 
+  ?obs qb:dataSet ?ds . 
+  ?ds qb:structure ?dsd . 
+  ?dsd qb:component ?cs . 
+  ?cs qb:componentProperty ?dim . 
+  ?dim a qb:DimensionProperty . 
+  FILTER NOT EXISTS { ?obs ?dim [] } 
+}

@@ -1,0 +1,10 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+select distinct ?obs ?attr 
+where { 
+  ?obs qb:dataSet ?ds . 
+  ?ds qb:structure ?dsd . 
+  ?dsd qb:component ?component . 
+  ?component qb:componentRequired "true"^^xsd:boolean . 
+  ?component qb:componentProperty ?attr . 
+  FILTER NOT EXISTS { ?obs ?attr [] } 
+}

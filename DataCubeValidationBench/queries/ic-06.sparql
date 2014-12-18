@@ -1,0 +1,8 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+select distinct ?dsd ?componentSpec ?component 
+where { 
+  ?dsd qb:component ?componentSpec . 
+  ?componentSpec qb:componentRequired "false"^^xsd:boolean . 
+  ?componentSpec qb:componentProperty ?component . 
+  FILTER NOT EXISTS { ?component a qb:AttributeProperty } 
+}

@@ -1,0 +1,14 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+select distinct ?obs ?measure ?omeasure 
+where { 
+  ?obs qb:dataSet ?ds . 
+  ?ds qb:structure ?dsd . 
+  ?obs qb:measureType ?measure . 
+  ?obs ?omeasure [] . 
+  ?dsd qb:component ?cs1 . 
+  ?cs1 qb:componentProperty qb:measureType . 
+  ?dsd qb:component ?cs2 . 
+  ?cs2 qb:componentProperty ?omeasure . 
+  ?omeasure a qb:MeasureProperty . 
+  FILTER (?omeasure != ?measure) 
+}

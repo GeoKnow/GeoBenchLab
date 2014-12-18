@@ -1,0 +1,10 @@
+prefix qb: <http://purl.org/linked-data/cube#> 
+select ?dsd 
+where { 
+  ?dsd a qb:DataStructureDefinition . 
+  FILTER NOT EXISTS { 
+    ?dsd qb:component ?cs . 
+    ?cs qb:componentProperty ?prop . 
+    ?prop a qb:MeasureProperty . 
+  } 
+}
